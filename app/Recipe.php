@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Recipe extends Model
 {
-    public function ingredient()
+    public function ingredients()
     {
-        return $this->hasMany('App\Ingredient');
+        return $this->belongsToMany(Ingredient::class);
     }
 }

@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/recipe', 'Recipe\RecipeController@index');
+Route::get('/recipe/{id}', 'Recipe\RecipeController@show');
