@@ -29,8 +29,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group([
-    'middleware' => 'auth:api'
-], function ($router) {
+    'middleware' => 'jwt.auth'
+], function () {
     Route::get('/recipe', 'Recipe\RecipeController@index');
     Route::get('/recipe/{id}', 'Recipe\RecipeController@show');
 });
