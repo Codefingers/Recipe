@@ -5,6 +5,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Recipe
+ *
+ * @property int $id
+ * @property string $name
+ */
 class Recipe extends Model
 {
     public function ingredients()

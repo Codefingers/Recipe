@@ -32,5 +32,9 @@ Route::group([
     'middleware' => 'jwt.auth'
 ], function () {
     Route::get('/recipe', 'Recipe\RecipeController@index');
+    Route::post('/recipe', 'Recipe\RecipeController@store');
+
     Route::get('/recipe/{id}', 'Recipe\RecipeController@show');
+    Route::delete('/recipe/{id}', 'Recipe\RecipeController@delete');
+    Route::put('/recipe/{id}', 'Recipe\RecipeController@update');
 });

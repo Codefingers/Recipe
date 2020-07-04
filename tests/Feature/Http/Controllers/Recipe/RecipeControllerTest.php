@@ -3,8 +3,11 @@
 namespace Tests\Feature\Http\Controllers\Recipe;
 
 use App\Recipe;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 /**
  * Exercises the Recipe Controller functionality
@@ -31,7 +34,10 @@ class RecipeControllerTest extends TestCase
      */
     public function testIndex()
     {
-        $response = $this->get('/api/recipe', ['authorization' => 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU5Mjc3NDEyOSwiZXhwIjoxNTkyNzc3NzI5LCJuYmYiOjE1OTI3NzQxMjksImp0aSI6IkV4VzVrd2NCSWZpdUxPdmIiLCJzdWIiOm51bGwsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.nue1tKZXinQKv0BS0u0NsC8W7wjS9W8mBBm3QLGA12wv']);
+        $user = User::where('email', Config::get('api.test_email'))->first();
+        $token = JWTAuth::fromUser($user);
+
+        $response = $this->get('/api/recipe', ['authorization' => 'Bearer ' . $token]);
         $recipes = Recipe::all();
 
         $response->assertStatus(200);
