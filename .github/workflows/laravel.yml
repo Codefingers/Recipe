@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: PHP check
-      - php -i
+      run: php -i
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
