@@ -55,7 +55,7 @@ class RecipeController extends Controller
         $recipe = Recipe::find($id);
         if (!$recipe)
         {
-            return response('Recipe not found', 404);
+            return response()->json('Recipe not found', 404);
         }
 
         $recipe->ingredients()->detach($id);
@@ -77,15 +77,12 @@ class RecipeController extends Controller
         $validated = $request->validated();
 
         $recipe = Recipe::find($id);
+
         $recipe->id = $id;
         $recipe->name = $validated['name'];
+        $recipe->update();
 
-        if ($recipe->update()) {
-            return response()->json($recipe);
-        }
-
-        return response()->json('', 500);
-
+        return response()->json($recipe);
     }
 
     /**

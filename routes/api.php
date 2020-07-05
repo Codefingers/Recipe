@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('sorry', 'SorryController@index')->name('sorry');
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
