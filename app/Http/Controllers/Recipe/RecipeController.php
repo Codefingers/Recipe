@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Recipe;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRecipe;
 use App\Http\Requests\UpdateRecipe;
-use App\Recipe;
+use App\Models\Recipe;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -51,7 +51,6 @@ class RecipeController extends Controller
      */
     public function delete(string $id): JsonResponse
     {
-        /** @var Recipe $recipe */
         $recipe = Recipe::find($id);
         if (!$recipe)
         {
@@ -77,8 +76,11 @@ class RecipeController extends Controller
         $validated = $request->validated();
 
         $recipe = Recipe::find($id);
+        if (is_null($recipe)) {
+            return response()->json('Recipe not found', 404);
+        }
 
-        $recipe->id = $id;
+        $recipe->id = (int) $id;
         $recipe->name = $validated['name'];
         $recipe->update();
 

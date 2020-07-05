@@ -69,7 +69,7 @@ class JWTAuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $token = auth()->attempt($validator->validated());
+        $token = (string) auth()->attempt($validator->validated());
         if (!$token) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -89,6 +89,7 @@ class JWTAuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
+            /** @phpstan-ignore-next-line */
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }

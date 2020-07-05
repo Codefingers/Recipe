@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Recipe;
 
-use App\Recipe;
+use App\Models\Recipe;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Tests\Feature\Http\Jwt;
