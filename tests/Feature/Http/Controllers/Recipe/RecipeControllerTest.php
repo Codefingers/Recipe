@@ -2,9 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Recipe;
 
-use App\Http\Requests\UpdateRecipe;
 use App\Recipe;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Tests\Feature\Http\Jwt;
@@ -96,6 +94,7 @@ class RecipeControllerTest extends TestCase
     {
         $response = $this->delete("/api/recipe/{$id}", [], $this->getAuthHeader());
 
+        $this->assertEquals(0, (count(DB::table('recipes')->get()->where('id', '=', $id))));
         $response->assertStatus($expectedStatusCode);
         $response->assertExactJson([$expectedResult]);
     }
@@ -122,50 +121,38 @@ class RecipeControllerTest extends TestCase
     }
 
     /**
+     * Tests that a recipe can be updated as expected
      *
+     * @return void
      */
     public function testUpdate(): void
     {
-        $response = $this->put("/api/recipe/1", ['name' => 'test'], $this->getAuthHeader());
+        $id = 1;
+        $response = $this->put("/api/recipe/{$id}", ['name' => 'test'], $this->getAuthHeader());
+
+        $recipeFromDb = DB::table('recipes')->get()->where('id', '=', $id)->first();
+
+        $this->assertSame($recipeFromDb->id, (string) $id);
+        $this->assertSame($recipeFromDb->name, 'test');
 
         $response->assertStatus(200);
-        $recipe = json_decode($response->getContent());
-        $this->assertSame(1, $recipe->id);
-        $this->assertSame('test', $recipe->name);
+        $recipeFromResponse = json_decode($response->getContent());
+        $this->assertSame(1, $recipeFromResponse->id);
+        $this->assertSame('test', $recipeFromResponse->name);
     }
 
     /**
-     * Dataprovider for testUpdate
+     * Tests that an exception is thrown and that a redirect occurs when the given form request is invalid
      *
-     * @return array
-     */
-    public function dataUpdate(): array
-    {
-        return [
-            'valid id' => [
-                'id' => 1,
-                'request body' => ['name' => 'test '],
-                'expected result' => true,
-                'expecteded status code' => 200,
-            ],
-        ];
-    }
-
-    /**
-     *
-     *
-     * @param int           $id
-     * @param array         $requestBody
-     * @param string|Recipe $expectedResult
-     * @param int           $expectedStatusCode
+     * @param int           $id          Id of the recipe to update
+     * @param array         $requestBody Request sent from client
      *
      * @dataProvider dataUpdateException
      */
-    public function testUpdateException(int $id, array $requestBody, int $expectedStatusCode): void
+    public function testUpdateException(int $id, array $requestBody): void
     {
         $response = $this->put("/api/recipe/{$id}", $requestBody, $this->getAuthHeader())->assertSessionHasErrors();
-
-        $response->assertStatus($expectedStatusCode);
+        $response->assertStatus(302);
     }
 
     /**
@@ -179,22 +166,69 @@ class RecipeControllerTest extends TestCase
             'name is not provided' => [
                 'id' => 1,
                 'request body' => [],
-                'expecteded status code' => 302,
             ],
             'name is not long enough' => [
                 'id' => 1,
                 'request body' => ['name' => ''],
-                'expecteded status code' => 302,
             ],
             'name is too long' => [
                 'id' => 1,
                 'request body' => ['name' => 'nplyjuzpjsiysjqtdabopsdbellawemqxxvpumjfnehkhqxfngvfimpsjqdjqltttavgnxtqjvtvnypjtjszjdjknmdusfzlsvvms '],
-                'expecteded status code' => 302,
             ],
             'id does not exist' => [
                 'id' => 99999,
                 'request body' => [],
                 'expecteded status code' => 302,
+            ],
+        ];
+    }
+
+    /**
+     * Tests that a recipe can be created as expected
+     *
+     * @return void
+     */
+    public function testStore(): void
+    {
+        $response = $this->post("/api/recipe", ['name' => 'test'], $this->getAuthHeader());
+        $recipeFromDb = DB::table('recipes')->get()->last();
+
+        $this->assertSame($recipeFromDb->name, 'test');
+
+        $response->assertStatus(200);
+        $recipeFromResponse = json_decode($response->getContent());
+        $this->assertSame('test', $recipeFromResponse->name);
+    }
+
+    /**
+     * Tests that an exception is thrown and that a redirect occurs when the given form request is invalid
+     *
+     * @param array $requestBody Request sent from client
+     *
+     * @dataProvider dataStoreException
+     */
+    public function testStoreException(array $requestBody): void
+    {
+        $response = $this->post("/api/recipe", $requestBody, $this->getAuthHeader())->assertSessionHasErrors();
+        $response->assertStatus(302);
+    }
+
+    /**
+     * Dataprovider for testStoreException
+     *
+     * @return array
+     */
+    public function dataStoreException(): array
+    {
+        return [
+            'name is not provided' => [
+                'request body' => [],
+            ],
+            'name is not long enough' => [
+                'request body' => ['name' => ''],
+            ],
+            'name is too long' => [
+                'request body' => ['name' => 'nplyjuzpjsiysjqtdabopsdbellawemqxxvpumjfnehkhqxfngvfimpsjqdjqltttavgnxtqjvtvnypjtjszjdjknmdusfzlsvvms '],
             ],
         ];
     }
