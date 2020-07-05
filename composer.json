@@ -1,7 +1,14 @@
 {
-    "name": "laravel/laravel",
+    "name": "recipe-api/recipe-api",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Recipe ",
+    "version": "0.1.0",
+    "authors": [
+        {
+            "name": "Ernest Lukos",
+            "email": "ernest-lukos@hotmail.co.uk"
+        }
+    ],
     "keywords": [
         "framework",
         "laravel"
