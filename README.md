@@ -23,6 +23,7 @@ If you are running with Docker, setup is easy as
 
 - `composer install`
 - `php artisan migrate:fresh --seed`
+- `php artisan jwt:secret`
 - `php artisan ide-helper:generate` (optional if you want your IDE to understand Laravel's magic)
 
 ## Direction
