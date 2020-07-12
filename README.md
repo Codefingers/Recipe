@@ -8,7 +8,22 @@ To get started with development there are two options:
 
 ### Option 1 - Docker
 If you are running with Docker, setup is easy as 
-`docker-compose up --build` 
+`docker-compose up --build`
+
+### Option 2 - Local
+
+
+#### Prerequisites
+
+- PHP 7.4
+- Composer
+
+
+#### Steps
+
+- `composer install`
+- `php artisan migrate:fresh --seed`
+- `php artisan ide-helper:generate` (optional if you want your IDE to understand Laravel's magic)
 
 ## Direction
 Future plans include:
