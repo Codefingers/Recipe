@@ -2,7 +2,7 @@
     "name": "recipe-api/recipe-api",
     "type": "project",
     "description": "Recipe ",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "authors": [
         {
             "name": "Ernest Lukos",
@@ -22,7 +22,7 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "tymon/jwt-auth": "^1.0",
-      "ext-json": "*"
+        "ext-json": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.7",
