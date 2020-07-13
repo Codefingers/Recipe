@@ -16,7 +16,7 @@ If you are running with Docker, setup is easy as
 #### Prerequisites
 
 - PHP 7.4
-- Composer
+- Composer  
 
 
 #### Steps
