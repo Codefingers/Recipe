@@ -57,10 +57,10 @@ class IngredientControllerTest extends TestCase
     public function testShow(int $id): void
     {
         $response = $this->get("/api/ingredient/{$id}", $this->getAuthHeader());
-        $ingredient = Ingredient::with('recipes')->where('id', '=', $id)->get();
+        $ingredient = Ingredient::find($id);
 
         $response->assertStatus(200);
-        $response->assertExactJson($ingredient->toArray());
+        $response->assertExactJson($ingredient ? $ingredient->toArray() : []);
     }
 
     /**

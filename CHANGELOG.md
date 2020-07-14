@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+### Added 
+
+- Step API for creating, reading, deleting and updating
+- Migration for the Step table
+- Seeding capabilities for the seed table
+
+
+### Changed
+
+- Ingredient API to no longer return a recipe object on the `GET` endpoint, on this route `/api/ingredient/{id}`
+
+
 ## [0.2.0] - 2020-07-12
 
 
