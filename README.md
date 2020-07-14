@@ -15,8 +15,8 @@ If you are running with Docker, setup is easy as
 
 #### Prerequisites
 
-- PHP 7.4
-- Composer
+- PHP 7.4+
+- Composer  
 
 
 #### Steps
@@ -27,6 +27,7 @@ If you are running with Docker, setup is easy as
 - `php artisan ide-helper:generate` (optional if you want your IDE to understand Laravel's magic)
 - `php artisan ide-helper:models` (optional if you want your IDE to understand Laravel's magic)
 
-## Direction
-Future plans include:
- - Splitting user management into a separate service to avoid a monolithic service.
+## Making changes
+
+Pull requests must be raised against develop.
+A version update must be included in `config/api.php` and in the `composer.json` file 
