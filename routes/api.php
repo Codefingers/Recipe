@@ -51,3 +51,15 @@ Route::group([
     Route::delete('/{id}', 'Ingredient\IngredientController@delete');
     Route::put('/{id}', 'Ingredient\IngredientController@update');
 });
+
+Route::group([
+    'middleware' => 'jwt.auth',
+    'prefix' => 'step'
+], function () {
+    Route::get('', 'Step\StepController@index');
+    Route::post('', 'Step\StepController@store');
+
+    Route::get('/{id}', 'Step\StepController@show');
+    Route::delete('/{id}', 'Step\StepController@delete');
+    Route::put('/{id}', 'Step\StepController@update');
+});

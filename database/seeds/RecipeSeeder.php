@@ -1,5 +1,7 @@
 <?php
 
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+
 use Illuminate\Database\Seeder;
 
 class RecipeSeeder extends Seeder
@@ -13,11 +15,12 @@ class RecipeSeeder extends Seeder
     {
         $recipes = factory(App\Models\Recipe::class, 50)->create();
         $ingredients = factory(App\Models\Ingredient::class, 50)->create();
-
         $recipes->each(function (App\Models\Recipe $recipe) use ($ingredients) {
             $recipe->ingredients()->attach(
                 $ingredients->random(rand(1,4))->pluck('id')->toArray()
             );
+
+            $recipe->steps()->save(factory(\App\Models\Step::class)->make());
         });
     }
 }
