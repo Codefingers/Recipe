@@ -37,7 +37,9 @@ class IngredientController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        return response()->json(Ingredient::with('recipes')->where('id', '=', $id)->get());
+        $ingredient = Ingredient::find($id);
+
+        return response()->json($ingredient ? $ingredient->toArray() : []);
     }
 
     /**
