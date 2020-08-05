@@ -13,7 +13,7 @@ jobs:
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: recipe/recipe-api/1
+          name: codefingers/recipe/recipe_api:1
           username: $GITHUB_ACTOR
           password: ${{ secrets.password }}
           registry: docker.pkg.github.com
