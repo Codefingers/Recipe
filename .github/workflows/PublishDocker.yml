@@ -11,10 +11,11 @@ jobs:
     steps:
       - name: Login to GitHub Package Registry
         run: docker login docker.pkg.github.com -u ${{ secrets.username }} -p ${{ secrets.password }}
-      - uses: actions/checkout@master
+      - uses: actions/checkout@develop
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: recipe-api
           username: ${{ secrets.username }}
           password: ${{ secrets.password }}
+          registry: docker.pkg.github.com
