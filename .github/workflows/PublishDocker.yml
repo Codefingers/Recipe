@@ -17,5 +17,10 @@ jobs:
           username: $GITHUB_ACTOR
           password: ${{ secrets.password }}
           registry: docker.pkg.github.com
-      - name: Deploy to Droplet
-        run: ssh root@${{ secrets.serverpass }} && ls -la
+      - name: SSH to Droplet
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{ secrets.serverhost }}
+          username: ${{ secrets.serveruser }}
+          key: ${{ secrets.serverpass }}
+          script: ls -la
