@@ -1,4 +1,4 @@
-name: Publish Docker
+name: Publish and Deploy Docker
 
 on:
   push:
@@ -17,3 +17,5 @@ jobs:
           username: $GITHUB_ACTOR
           password: ${{ secrets.password }}
           registry: docker.pkg.github.com
+      - name: Deploy to Droplet
+        run: ssh root@${{ secrets.serverpass }} && ls -la
