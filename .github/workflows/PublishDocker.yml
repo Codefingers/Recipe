@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Login to GitHub Package Registry
-      - run: docker login docker.pkg.github.com -u ${{ secrets.username }} -p ${{ secrets.password }}
+        run: docker login docker.pkg.github.com -u ${{ secrets.username }} -p ${{ secrets.password }}
       - uses: actions/checkout@master
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
