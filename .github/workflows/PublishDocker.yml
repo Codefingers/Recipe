@@ -14,6 +14,6 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: recipe-api
-          username: ${{ github.actor }}
+          username: $GITHUB_ACTOR
           password: ${{ secrets.password }}
           registry: docker.pkg.github.com
