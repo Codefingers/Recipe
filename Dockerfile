@@ -1,5 +1,7 @@
 FROM php:7.4-cli
 
+USER root
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install unzip utility and libs needed by zip PHP extension
@@ -10,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install zip
 
 COPY . /app
-RUN cd /app/bootstrap/docker && chmod 666 start_api.sh
+RUN cd /app/bootstrap/docker && sudo chmod 666 start_api.sh
 RUN cd /app && composer install
 
 CMD ./app/bootstrap/docker/start_api.sh
