@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install zip
 
 COPY . /app
-RUN cd /app/bootstrap/docker && sudo chmod 666 start_api.sh
-RUN cd /app && composer install
+WORKDIR /app
+RUN chmod 666 bootstrap/docker/start_api.sh
+RUN composer install
 
 CMD ./app/bootstrap/docker/start_api.sh
