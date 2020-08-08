@@ -9,6 +9,9 @@ RUN apt-get update && apt-get install -y \
     unzip
 RUN docker-php-ext-install zip
 
-RUN ls -la
+RUN ls -la /opt
+RUN ls -la /var
+RUN ls -la /srv
+RUN ls -la /home
 
 RUN composer install
