@@ -10,8 +10,5 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install zip
 
 COPY . /app
-RUN make /app
 
-RUN cd /app
-
-RUN composer install
+RUN cd /app && composer install
