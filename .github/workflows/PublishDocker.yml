@@ -26,6 +26,6 @@ jobs:
           script: |
             cd /var/www/Recipe
             docker pull docker.pkg.github.com/codefingers/recipe/recipe_api:1
-            docker-compose down
+            docker stop recipe_api
             docker container prune -f
-            docker run -d -p 8000:80 docker.pkg.github.com/codefingers/recipe/recipe_api:1
+            docker run -d -p --name recipe_api 8000:80 docker.pkg.github.com/codefingers/recipe/recipe_api:1
