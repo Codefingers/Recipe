@@ -3,7 +3,7 @@ name: Publish and Deploy Docker
 on:
   push:
     branches:
-      - '*'
+      - 'develop'
 
 jobs:
   build:
@@ -26,4 +26,6 @@ jobs:
           script: |
             cd /var/www/Recipe
             docker pull docker.pkg.github.com/codefingers/recipe/recipe_api:1
+            docker-compose down
+            docker container prune -f
             docker run -d -p 8000:80 docker.pkg.github.com/codefingers/recipe/recipe_api:1
