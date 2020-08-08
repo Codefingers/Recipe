@@ -23,4 +23,8 @@ jobs:
           host: ${{ secrets.serverhost }}
           username: ${{ secrets.serveruser }}
           key: ${{ secrets.serverpass }}
-          script: ls -la
+          script: |
+            cd /var/www/Recipe
+            docker-compose down
+            docker pull docker.pkg.github.com/codefingers/recipe/recipe_api:1
+            docker-compose up --build -d
