@@ -12,6 +12,6 @@ RUN docker-php-ext-install zip
 COPY . /app
 RUN make /app
 
-RUN ls -la /app
+RUN cd /app
 
 RUN composer install
