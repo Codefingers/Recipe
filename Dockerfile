@@ -11,4 +11,8 @@ RUN docker-php-ext-install zip
 
 COPY . /app
 
+RUN cd /app & chmod 666 bootstrap/docker/start_api.sh
+
 RUN cd /app && composer install
+
+CMD ./app/bootstrap/docker/start_api.sh
