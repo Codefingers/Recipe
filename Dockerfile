@@ -1,1 +1,1 @@
-FROM php:7.4-cli
+FROM docker.pkg.github.com/codefingers/recipe/recipe_api:1

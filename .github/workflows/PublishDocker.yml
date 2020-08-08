@@ -1,0 +1,30 @@
+name: Publish and Deploy Docker
+
+on:
+  push:
+    branches:
+      - 'develop'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: codefingers/recipe/recipe_api:1
+          username: $GITHUB_ACTOR
+          password: ${{ secrets.password }}
+          registry: docker.pkg.github.com
+      - name: SSH to Droplet
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{ secrets.serverhost }}
+          username: ${{ secrets.serveruser }}
+          key: ${{ secrets.serverpass }}
+          script: |
+            cd /var/www/Recipe
+            docker-compose down
+            docker pull docker.pkg.github.com/codefingers/recipe/recipe_api:1
+            docker-compose up --build -d
