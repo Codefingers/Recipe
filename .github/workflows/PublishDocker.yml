@@ -25,6 +25,5 @@ jobs:
           key: ${{ secrets.serverpass }}
           script: |
             cd /var/www/Recipe
-            docker-compose down
             docker pull docker.pkg.github.com/codefingers/recipe/recipe_api:1
-            docker-compose up --build -d
+            docker run -d --name recipe_api -p 8000:80 docker.pkg.github.com/codefingers/recipe/recipe_api:1
