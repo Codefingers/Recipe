@@ -28,4 +28,4 @@ jobs:
             docker pull docker.pkg.github.com/codefingers/recipe/recipe_api:1
             docker stop recipe_api
             docker container prune -f
-            docker run -d -p --name recipe_api 8000:80 docker.pkg.github.com/codefingers/recipe/recipe_api:1
+            docker run -d --name recipe_api -p 8000:80 docker.pkg.github.com/codefingers/recipe/recipe_api:1
