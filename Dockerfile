@@ -16,4 +16,4 @@ WORKDIR /app
 RUN chmod 666 bootstrap/docker/start_api.sh
 RUN composer install
 
-CMD ./app/bootstrap/docker/start_api.sh
+CMD /app/bootstrap/docker/start_api.sh
