@@ -15,12 +15,13 @@ COPY . /app
 WORKDIR /app
 RUN composer install
 
-env MYSQLHOST
+env MYSQLHOST MYSQLHOST
 arg MYSQLDB
 arg MYSQLUSER
 arg MYSQLPASS
 
 RUN echo ${MYSQLHOST}
+RUN echo $MYSQLHOST
 RUN echo ${MYSQLDB}
 
 CMD /app/bootstrap/docker/create_env.sh ${MYSQLHOST} ${MYSQLDB} ${MYSQLUSER} ${MYSQLPASS}; /app/bootstrap/docker/start_api.sh;
