@@ -21,14 +21,15 @@ jobs:
       - name: SSH to Droplet
         uses: appleboy/ssh-action@master
         env:
-          MYSQLHOST: {{ secrets.mysqlhost }}
-          MYSQLDB: {{ secrets.mysqldb }}
-          MSYQLUSER: {{ secrets.mysqluser }}
-          MYSQLPASS: {{ secrets.mysqlpass }}
+          MYSQLHOST: ${{ secrets.mysqlhost }}
+          MYSQLDB: ${{ secrets.mysqldb }}
+          MSYQLUSER: ${{ secrets.mysqluser }}
+          MYSQLPASS: ${{ secrets.mysqlpass }}
         with:
           host: ${{ secrets.serverhost }}
           username: ${{ secrets.serveruser }}
           key: ${{ secrets.serverpass }}
+          envs: MYSQLHOST,MYSQLDB,MYSQLUSER,MYSQLPASS
           script: |
             cd /var/www/Recipe
             docker pull docker.pkg.github.com/codefingers/recipe/recipe_api:1
