@@ -17,7 +17,7 @@ jobs:
           username: $GITHUB_ACTOR
           password: ${{ secrets.password }}
           registry: docker.pkg.github.com
-          buildargs: foo=bar
+          buildargs: mysqlhost={{ secrets.mysqlhost }},mysqldb={{ secrets.mysqldb }},mysqluser={{ secrets.mysqluser }},mysqlpass={{ secrets.mysqlpass }}
       - name: SSH to Droplet
         uses: appleboy/ssh-action@v0.1.2
         with:
