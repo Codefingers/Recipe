@@ -36,4 +36,3 @@ jobs:
             docker stop recipe_api
             docker container prune -f
             docker run -d --name recipe_api -p 8000:80 docker.pkg.github.com/codefingers/recipe/recipe_api:1
-            docker exec -i recipe_api bash << EOF\n sed 's/DB_HOST=/DB_HOST=$MYSQLHOST/' .env\n EOF

@@ -15,11 +15,4 @@ COPY . /app
 WORKDIR /app
 RUN composer install
 
-COPY .env.example .env
-
-RUN sed 's/DB_HOST=/DB_HOST=${mysqlhost}/' .env
-RUN sed 's/DB_DATABASE=/DB_DATABASE=${mysqldb}/' .env
-RUN sed 's/DB_USERNAME=/DB_USERNAME=${mysqluser}/' .env
-RUN sed 's/DB_PASSWORD=/DB_PASSWORD=${mysqlpass}/' .env
-
 CMD /app/bootstrap/docker/start_api.sh
