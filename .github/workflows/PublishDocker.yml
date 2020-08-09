@@ -17,19 +17,13 @@ jobs:
           username: $GITHUB_ACTOR
           password: ${{ secrets.password }}
           registry: docker.pkg.github.com
-          buildargs: mysqlhost={{ secrets.mysqlhost }},mysqldb={{ secrets.mysqldb }},mysqluser={{ secrets.mysqluser }},mysqlpass={{ secrets.mysqlpass }}
+          buildargs: MYSQLHOST={{ secrets.mysqlhost }},MYSQLDB={{ secrets.mysqldb }},MYSQLUSER={{ secrets.mysqluser }},MYSQLPASS={{ secrets.mysqlpass }}
       - name: SSH to Droplet
         uses: appleboy/ssh-action@master
-        env:
-          MYSQLHOST: ${{ secrets.mysqlhost }}
-          MYSQLDB: ${{ secrets.mysqldb }}
-          MSYQLUSER: ${{ secrets.mysqluser }}
-          MYSQLPASS: ${{ secrets.mysqlpass }}
         with:
           host: ${{ secrets.serverhost }}
           username: ${{ secrets.serveruser }}
           key: ${{ secrets.serverpass }}
-          envs: MYSQLHOST,MYSQLDB,MYSQLUSER,MYSQLPASS
           script: |
             cd /var/www/Recipe
             docker pull docker.pkg.github.com/codefingers/recipe/recipe_api:1

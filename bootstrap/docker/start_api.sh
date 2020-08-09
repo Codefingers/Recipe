@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-cp .env.example .env
 php artisan key:generate --no-interaction
 php artisan jwt:secret --no-interaction
 
