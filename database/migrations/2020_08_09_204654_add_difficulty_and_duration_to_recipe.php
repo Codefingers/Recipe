@@ -14,8 +14,8 @@ class AddDifficultyAndDurationToRecipe extends Migration
     public function up()
     {
         Schema::table('recipes', function (Blueprint $table) {
-            $table->integer('duration');
-            $table->integer('difficulty');
+            $table->integer('duration')->default(60);
+            $table->integer('difficulty')->default(3);
         });
     }
 
