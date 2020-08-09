@@ -19,7 +19,12 @@ jobs:
           registry: docker.pkg.github.com
           buildargs: mysqlhost={{ secrets.mysqlhost }},mysqldb={{ secrets.mysqldb }},mysqluser={{ secrets.mysqluser }},mysqlpass={{ secrets.mysqlpass }}
       - name: SSH to Droplet
-        uses: appleboy/ssh-action@v0.1.2
+        uses: appleboy/ssh-action@master
+        env:
+          MYSQLHOST: {{ secrets.mysqlhost }}
+          MYSQLDB: {{ secrets.mysqldb }}
+          MSYQLUSER: {{ secrets.mysqluser }}
+          MYSQLPASS: {{ secrets.mysqlpass }}
         with:
           host: ${{ secrets.serverhost }}
           username: ${{ secrets.serveruser }}
@@ -30,3 +35,4 @@ jobs:
             docker stop recipe_api
             docker container prune -f
             docker run -d --name recipe_api -p 8000:80 docker.pkg.github.com/codefingers/recipe/recipe_api:1
+            docker exec -i recipe_api bash << EOF\n sed 's/DB_HOST=/DB_HOST=$MYSQLHOST/' .env\n EOF
