@@ -21,5 +21,8 @@ arg MYSQLUSER
 arg MYSQLPASS
 
 env MYSQLHOST=$MYSQLHOST
+env MYSQLDB=$MYSQLDB
+env MYSQLUSER=$MYSQLUSER
+env MYSQLPASS=$MYSQLPASS
 
-CMD /app/bootstrap/docker/create_env.sh $MYSQLHOST $MYSQLDB ${MYSQLUSER} ${MYSQLPASS}; /app/bootstrap/docker/start_api.sh;
+CMD /app/bootstrap/docker/create_env.sh $MYSQLHOST $MYSQLDB $MYSQLUSER $MYSQLPAS}; /app/bootstrap/docker/start_api.sh;
