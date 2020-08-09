@@ -31,3 +31,9 @@ If you are running with Docker, setup is easy as
 
 Pull requests must be raised against develop.
 A version update must be included in `config/api.php` and in the `composer.json` file 
+
+### Adding DB migrations
+To add new database migrations, run the following command.
+```shell script
+    php artisan make:migration <your-table-name>
+```
