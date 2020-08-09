@@ -2,7 +2,7 @@
 set -e
 
 cp .env.example .env
-sed "s/DB_HOST=/DB_HOST=${MYSQLHOST}/" .env
-sed "s/DB_DATABASE=/DB_DATABASE=${MYSQLDB}/" .env
-sed "s/DB_USERNAME=/DB_USERNAME=${MYSQLUSER}/" .env
-sed "s/DB_PASSWORD=/DB_PASSWORD=${MYSQLPASS}/" .env
+sed "s/DB_HOST=/DB_HOST=${1}/" .env
+sed "s/DB_DATABASE=/DB_DATABASE=${2}/" .env
+sed "s/DB_USERNAME=/DB_USERNAME=${3}/" .env
+sed "s/DB_PASSWORD=/DB_PASSWORD=${4}/" .env
