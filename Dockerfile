@@ -15,4 +15,7 @@ COPY . /app
 WORKDIR /app
 RUN composer install
 
+COPY .env.example .env
+RUN echo $foo
+
 CMD /app/bootstrap/docker/start_api.sh
