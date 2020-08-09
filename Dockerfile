@@ -22,4 +22,4 @@ arg MYSQLPASS
 
 env MYSQLHOST=$MYSQLHOST
 
-CMD /app/bootstrap/docker/create_env.sh $MYSQLHOST ${MYSQLDB} ${MYSQLUSER} ${MYSQLPASS}; /app/bootstrap/docker/start_api.sh;
+CMD /app/bootstrap/docker/create_env.sh $MYSQLHOST $MYSQLDB ${MYSQLUSER} ${MYSQLPASS}; /app/bootstrap/docker/start_api.sh;
