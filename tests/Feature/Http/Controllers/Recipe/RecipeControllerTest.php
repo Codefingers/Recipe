@@ -128,12 +128,12 @@ class RecipeControllerTest extends TestCase
     public function testUpdate(): void
     {
         $id = 1;
-        $response = $this->put("/api/recipe/{$id}", ['name' => 'test'], $this->getAuthHeader());
+        $response = $this->put("/api/recipe/{$id}", ['id' => $id, 'name' => 'test'], $this->getAuthHeader());
 
         $recipeFromDb = DB::table('recipes')->get()->where('id', '=', $id)->first();
 
-        $this->assertSame($recipeFromDb->id, (string) $id);
-        $this->assertSame($recipeFromDb->name, 'test');
+        $this->assertSame($id, $recipeFromDb->id);
+        $this->assertSame('test', $recipeFromDb->name);
 
         $response->assertStatus(200);
         $recipeFromResponse = json_decode($response->getContent());
