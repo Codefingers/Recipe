@@ -24,8 +24,10 @@ class UpdateRecipe extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'exists:recipes',
-            'name' => 'required|max:100|min:1'
+            'id' => 'required|exists:recipes',
+            'name' => 'sometimes|max:100|min:1',
+            'duration' => 'sometimes|max:999|min:1',
+            'difficulty' => 'sometimes|max:5|min:1'
         ];
     }
 }

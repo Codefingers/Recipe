@@ -24,7 +24,9 @@ class StoreRecipe extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:100|min:1'
+            'name' => 'required|max:100|min:1',
+            'duration' => 'required|max:999|min:1',
+            'difficulty' => 'required|max:5|min:1'
         ];
     }
 }

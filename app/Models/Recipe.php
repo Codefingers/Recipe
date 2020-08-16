@@ -26,6 +26,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Step[] $steps
  * @property-read int|null $steps_count
+ * @property int $duration
+ * @property int $difficulty
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereDifficulty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereDuration($value)
  */
 class Recipe extends Model
 {

@@ -128,16 +128,16 @@ class RecipeControllerTest extends TestCase
     public function testUpdate(): void
     {
         $id = 1;
-        $response = $this->put("/api/recipe/{$id}", ['name' => 'test'], $this->getAuthHeader());
+        $response = $this->put("/api/recipe/{$id}", ['id' => $id, 'name' => 'test'], $this->getAuthHeader());
 
         $recipeFromDb = DB::table('recipes')->get()->where('id', '=', $id)->first();
 
-        $this->assertSame($recipeFromDb->id, (string) $id);
-        $this->assertSame($recipeFromDb->name, 'test');
+        $this->assertSame($id, (int) $recipeFromDb->id);
+        $this->assertSame('test', $recipeFromDb->name);
 
         $response->assertStatus(200);
         $recipeFromResponse = json_decode($response->getContent());
-        $this->assertSame(1, $recipeFromResponse->id);
+        $this->assertSame(1, (int) $recipeFromResponse->id);
         $this->assertSame('test', $recipeFromResponse->name);
     }
 
@@ -163,17 +163,13 @@ class RecipeControllerTest extends TestCase
     public function dataUpdateException(): array
     {
         return [
-            'name is not provided' => [
-                'id' => 1,
-                'request body' => [],
-            ],
             'name is not long enough' => [
                 'id' => 1,
-                'request body' => ['name' => ''],
+                'request body' => ['id' => 1, 'name' => ''],
             ],
             'name is too long' => [
                 'id' => 1,
-                'request body' => ['name' => 'nplyjuzpjsiysjqtdabopsdbellawemqxxvpumjfnehkhqxfngvfimpsjqdjqltttavgnxtqjvtvnypjtjszjdjknmdusfzlsvvms '],
+                'request body' => ['id' => 1, 'name' => 'nplyjuzpjsiysjqtdabopsdbellawemqxxvpumjfnehkhqxfngvfimpsjqdjqltttavgnxtqjvtvnypjtjszjdjknmdusfzlsvvms '],
             ],
             'id does not exist' => [
                 'id' => 99999,
@@ -190,7 +186,7 @@ class RecipeControllerTest extends TestCase
      */
     public function testStore(): void
     {
-        $response = $this->post("/api/recipe", ['name' => 'test'], $this->getAuthHeader());
+        $response = $this->post("/api/recipe", ['name' => 'test', 'duration' => 120, 'difficulty' => 3], $this->getAuthHeader());
         $recipeFromDb = DB::table('recipes')->get()->last();
 
         $this->assertSame($recipeFromDb->name, 'test');

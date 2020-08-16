@@ -81,7 +81,9 @@ class RecipeController extends Controller
         }
 
         $recipe->id = (int) $id;
-        $recipe->name = $validated['name'];
+        $recipe->name = isset($validated['name']) ? $validated['name'] : $recipe->name;
+        $recipe->duration = isset($validated['duration']) ? (int) $validated['duration'] : $recipe->duration;
+        $recipe->difficulty = isset($validated['difficulty']) ? (int) $validated['difficulty'] : $recipe->difficulty;
         $recipe->update();
 
         return response()->json($recipe);
@@ -102,6 +104,8 @@ class RecipeController extends Controller
 
         $recipe = new Recipe();
         $recipe->name = $validated['name'];
+        $recipe->duration = $validated['duration'];
+        $recipe->difficulty = $validated['difficulty'];
 
         if ($recipe->save()) {
             return response()->json($recipe);
