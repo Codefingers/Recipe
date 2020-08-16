@@ -163,17 +163,13 @@ class RecipeControllerTest extends TestCase
     public function dataUpdateException(): array
     {
         return [
-            'name is not provided' => [
-                'id' => 1,
-                'request body' => [],
-            ],
             'name is not long enough' => [
                 'id' => 1,
-                'request body' => ['name' => ''],
+                'request body' => ['id' => 1, 'name' => ''],
             ],
             'name is too long' => [
                 'id' => 1,
-                'request body' => ['name' => 'nplyjuzpjsiysjqtdabopsdbellawemqxxvpumjfnehkhqxfngvfimpsjqdjqltttavgnxtqjvtvnypjtjszjdjknmdusfzlsvvms '],
+                'request body' => ['id' => 1, 'name' => 'nplyjuzpjsiysjqtdabopsdbellawemqxxvpumjfnehkhqxfngvfimpsjqdjqltttavgnxtqjvtvnypjtjszjdjknmdusfzlsvvms '],
             ],
             'id does not exist' => [
                 'id' => 99999,
@@ -190,7 +186,7 @@ class RecipeControllerTest extends TestCase
      */
     public function testStore(): void
     {
-        $response = $this->post("/api/recipe", ['name' => 'test'], $this->getAuthHeader());
+        $response = $this->post("/api/recipe", ['name' => 'test', 'duration' => 120, 'difficulty' => 3], $this->getAuthHeader());
         $recipeFromDb = DB::table('recipes')->get()->last();
 
         $this->assertSame($recipeFromDb->name, 'test');
