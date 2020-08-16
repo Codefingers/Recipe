@@ -132,7 +132,7 @@ class RecipeControllerTest extends TestCase
 
         $recipeFromDb = DB::table('recipes')->get()->where('id', '=', $id)->first();
 
-        $this->assertSame($id, $recipeFromDb->id);
+        $this->assertSame((int) $id, $recipeFromDb->id);
         $this->assertSame('test', $recipeFromDb->name);
 
         $response->assertStatus(200);
