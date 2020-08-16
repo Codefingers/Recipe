@@ -25,7 +25,9 @@ class UpdateRecipe extends FormRequest
     {
         return [
             'id' => 'exists:recipes',
-            'name' => 'required|max:100|min:1'
+            'name' => 'sometimes|max:100|min:1',
+            'duration' => 'sometimes|max:999|min:1',
+            'difficulty' => 'sometimes|max:5|min:1'
         ];
     }
 }
