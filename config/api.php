@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'version' => '0.2.0',
+    'version' => '1.0.1',
 
     // Credentials for the user accessing endpoints in the test suite
     'test_email' => 'root@gmail.com',
