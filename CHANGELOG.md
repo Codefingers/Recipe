@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2020-09-20
+
 
 ### Added 
 
@@ -18,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Ingredient API to no longer return a recipe object on the `GET` endpoint, on this route `/api/ingredient/{id}`
-
+- Recipe `GET` endpoint now returns related steps, on this route `/api/recipe/{id}`
 
 ## [0.2.0] - 2020-07-12
 
