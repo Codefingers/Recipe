@@ -57,7 +57,7 @@ class RecipeControllerTest extends TestCase
     public function testShow(int $id): void
     {
         $response = $this->get("/api/recipe/{$id}", $this->getAuthHeader());
-        $recipe = Recipe::with('ingredients')->where('id', '=', $id)->get();
+        $recipe = Recipe::with('ingredients', 'steps')->where('id', '=', $id)->get();
 
         $response->assertStatus(200);
         $response->assertExactJson($recipe->toArray());
