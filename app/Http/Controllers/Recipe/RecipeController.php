@@ -37,7 +37,7 @@ class RecipeController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        return response()->json(Recipe::with('ingredients')->where('id', '=', $id)->get());
+        return response()->json(Recipe::with('ingredients', 'steps')->where('id', '=', $id)->get());
     }
 
     /**
